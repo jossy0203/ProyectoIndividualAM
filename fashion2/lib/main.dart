@@ -6,8 +6,17 @@ import 'package:fashion2/pages/perfilScreen.dart';
 import 'package:fashion2/pages/productosScreen.dart';
 import 'package:fashion2/pages/registroScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CartModel(),
+      child: MyApp(),
+    ),
+  );
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

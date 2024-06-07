@@ -1,5 +1,6 @@
-import 'package:fashion2/pages/model.dart';
+import 'package:fashion2/pages/home.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CarritoScreen extends StatefulWidget {
   const CarritoScreen({super.key});
@@ -9,13 +10,6 @@ class CarritoScreen extends StatefulWidget {
 }
 
 class _CarritoScreenState extends State<CarritoScreen> {
-  final List<Producto> productos = [
-    Producto(nombre: 'Producto 1', descripcion: 'Descripción del producto 1', precio: 10, imagen: 'images/imagen1.jpg'),
-    Producto(nombre: 'Producto 2', descripcion: 'Descripción del producto 2', precio: 20, imagen: 'images/imagen2.jpg'),
-    Producto(nombre: 'Producto 2', descripcion: 'Descripción del producto 2', precio: 20, imagen: 'images/imagen2.jpg'),
-    Producto(nombre: 'Producto 2', descripcion: 'Descripción del producto 2', precio: 20, imagen: 'images/imagen2.jpg'),
-    // Agrega más productos según sea necesario
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,54 +17,69 @@ class _CarritoScreenState extends State<CarritoScreen> {
       appBar: AppBar(
         title: Text('Carrito de Compras'),
       ),
-      body: ListView.builder(
-        itemCount: productos.length,
-        itemBuilder: (context, index) {
-          final producto = productos[index];
-          return ListTile(
-            leading: Image.asset(
-              producto.imagen,
-              width: 50,
-              height: 50,
-              fit: BoxFit.cover,
-            ),
-            title: Text(producto.nombre),
-            subtitle: Text('Precio: \$${producto.precio.toString()}'),
-            trailing: Text('Cantidad: 1'), // Puedes agregar la cantidad dinámicamente si lo deseas
+      body: Consumer<CartModel>(
+        builder: (context, cart, child) {
+          return ListView.builder(
+            itemCount: cart.items.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(cart.items[index].label),
+                subtitle: Text(cart.items[index].price),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        _editItemDialog(context, index, cart.items[index]);
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        cart.removeItem(index);
+                      },
+                    ),
+                  ],
+                ),
+              );
+            },
           );
         },
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          padding: EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Total: \$${_calcularTotal().toStringAsFixed(2)}', // Calcula y muestra el total de la compra
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Agrega la lógica para realizar el pago
-                },
-                child: Text('Pagar'),
-              ),
-            ],
-          ),
-        ),
+      floatingActionButton: ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/home');
+          
+        },
+        child: Text('Pagar'),
       ),
     );
   }
+  void _editItemDialog(BuildContext context, int index, CartItem item) {
+    final labelController = TextEditingController(text: item.label);
+    final priceController = TextEditingController(text: item.price);
 
-  double _calcularTotal() {
-    double total = 0;
-    for (var producto in productos) {
-      total += producto.precio;
-    }
-    return total;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Editar Producto'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: labelController,
+                decoration: InputDecoration(labelText: 'Nombre del Producto'),
+              ),
+              TextField(
+                controller: priceController,
+                decoration: InputDecoration(labelText: 'Precio del Producto'),
+              ),
+            ],
+          ),
+        );
+      }
+    );
   }
 }

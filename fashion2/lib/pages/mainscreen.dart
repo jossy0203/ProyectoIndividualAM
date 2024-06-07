@@ -56,7 +56,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Image.asset(
-                      'images/imagen1.jpg',
+                      'images/portada.jpg',
                       height: 100,
                       fit: BoxFit.cover,
                     ),
@@ -66,7 +66,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Image.asset(
-                      'images/imagen2.jpg',
+                      'images/portada2.jpg',
                       height: 100,
                       fit: BoxFit.cover,
                     ),
@@ -76,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Image.asset(
-                      'images/imagen3.jpg',
+                      'images/portada3.jpg',
                       height: 100,
                       fit: BoxFit.cover,
                     ),

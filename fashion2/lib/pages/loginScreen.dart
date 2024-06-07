@@ -41,7 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
           key: _loginform,
           child: ListView(
             children: <Widget>[
-              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center, 
+              children: [
                 CircleAvatar(
                   radius: 100.0,
                   backgroundColor: const Color.fromARGB(255, 208, 208, 208),

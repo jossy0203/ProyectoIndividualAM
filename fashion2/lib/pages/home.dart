@@ -1,4 +1,7 @@
+import 'package:fashion2/pages/carritoScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,38 +15,259 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tienda de Ropa'),
+        title: Text('Fashion & Flair'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          ),
+          Consumer<CartModel>(
+            builder: (context, cart, child) {
+              return Stack(
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.shopping_cart),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CarritoScreen()),
+                      );
+                    },
+                  ),
+                  if (cart.items.length > 0)
+                    Positioned(
+                      right: 0,
+                      child: CircleAvatar(
+                        radius: 10,
+                        backgroundColor: Colors.red,
+                        child: Text(
+                          cart.items.length.toString(),
+                          style: TextStyle(fontSize: 12, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          )
+        ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildSearchBar(),
-              SizedBox(height: 20),
-              Text(
-                'Categorías',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+      body: ListView(
+        padding: EdgeInsets.all(36.0),
+        children: [
+          // Popular Categories
+          SizedBox(
+            height: 130,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Center(
+                      child: CategoryIcon(
+                          icon: Icons.local_activity, label: 'Blusas')),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Center(
+                      child: CategoryIcon(
+                          icon: Icons.devices, label: 'Pantalones')),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Center(
+                      child:
+                          CategoryIcon(icon: Icons.chair, label: 'Chaquetas')),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Center(
+                      child: CategoryIcon(icon: Icons.casino, label: 'Suéter')),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Center(
+                      child: CategoryIcon(icon: Icons.pets, label: 'Jeans')),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Center(
+                      child:
+                          CategoryIcon(icon: Icons.cable, label: 'Accesorios')),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Center(
+                      child: CategoryIcon(
+                          icon: Icons.ice_skating_outlined, label: 'Zapatos')),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Center(
+                      child:
+                          CategoryIcon(icon: Icons.more_horiz, label: 'More')),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+          // imagen1 of the Week
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 250,
+              autoPlay: true,
+              enlargeCenterPage: true,
+            ),
+            items: [
+              Card(
+                elevation: 5,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Image.asset('images/portada.jpg',
+                          fit: BoxFit.cover, width: 500.0),
+                    ),
+                    ListTile(
+                      title: Text('Viste tu imaginación',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle:
+                          Text('Donde la moda se encuentra con la creatividad'),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 10),
-              _buildCategoryRow(),
-              SizedBox(height: 20),
-              Text(
-                'Productos Destacados',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+              Card(
+                elevation: 5,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Image.asset('images/portada1.jpg',
+                          fit: BoxFit.cover, width: 500.0),
+                    ),
+                    ListTile(
+                      title: Text('Estilo que habla por sí mismo',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text('Encuentra tu voz en nuestra tienda'),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 10),
-              _buildProductGrid(),
+              Card(
+                elevation: 5,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Image.asset('images/portada2.jpg',
+                          fit: BoxFit.cover, width: 500.0),
+                    ),
+                    ListTile(
+                      title: Text('Eleva tu estilo',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text('Moda que inspira, ropa que enamora'),
+                    ),
+                  ],
+                ),
+              ),
+              Card(
+                elevation: 5,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Image.asset('images/portada3.jpg',
+                          fit: BoxFit.cover, width: 500.0),
+                    ),
+                    ListTile(
+                      title: Text(
+                        'De la pasarela a tu armario',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle:
+                          Text('Cdescubre las tendencias en nuestra tienda'),
+                    ),
+                  ],
+                ),
+              ),
+              Card(
+                elevation: 5,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Image.asset('images/portada4.jpg',
+                          fit: BoxFit.cover, width: 500.0),
+                    ),
+                    ListTile(
+                      title: Text('Donde cada prenda cuenta una historia',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text('encuentra la tuya aquí'),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
-        ),
+          SizedBox(height: 20),
+          // Popular Products
+          Text('Populares', style: Theme.of(context).textTheme.headlineSmall),
+          GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+              ProductCard(
+                  imageUrl: 'images/imagen1.jpg',
+                  label: 'Blusa Gris',
+                  price: '\$50'),
+              ProductCard(
+                  imageUrl: 'images/imagen2.jpg',
+                  label: 'Pantalon Jean Verde',
+                  price: '\$70'),
+              ProductCard(
+                  imageUrl: 'images/imagen3.jpg',
+                  label: 'Chaqueta Negra',
+                  price: '\$30'),
+              ProductCard(
+                  imageUrl: 'images/imagen4.jpg',
+                  label: 'Zapatos Blancos',
+                  price: '\$40'),
+              ProductCard(
+                  imageUrl: 'images/imagen5.jpg',
+                  label: 'Sueter de lana café',
+                  price: '\$40'),
+              ProductCard(
+                  imageUrl: 'images/imagen6.jpg',
+                  label: 'Collar',
+                  price: '\$40'),
+              ProductCard(
+                  imageUrl: 'images/imagen7.jpg',
+                  label: 'Arretes',
+                  price: '\$40'),
+              ProductCard(
+                  imageUrl: 'images/imagen8.jpg',
+                  label: 'Gorra',
+                  price: '\$40'),
+            ],
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -85,118 +309,91 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
 
-  Widget _buildSearchBar() {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: 'Buscar productos',
-        prefixIcon: Icon(Icons.search),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide.none,
+class CategoryIcon extends StatelessWidget {
+  final IconData icon;
+  final String label;
+
+  CategoryIcon({required this.icon, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CircleAvatar(
+          radius: 30,
+          child: Icon(icon, size: 30),
         ),
-        filled: true,
-        fillColor: Colors.grey[200],
-      ),
+        SizedBox(height: 8),
+        Text(label),
+      ],
     );
   }
+}
 
-  Widget _buildCategoryRow() {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          _buildCategoryCard('Camisas', 'images/imagen1.jpg'),
-          _buildCategoryCard('Pantalones', 'images/imagen2.jpg'),
-          _buildCategoryCard('Zapatos', 'images/imagen3.jpg'),
-          _buildCategoryCard('Zapatos', 'images/imagen3.jpg'),
-          _buildCategoryCard('Zapatos', 'images/imagen3.jpg'),
-          // Agrega más categorías según sea necesario
-        ],
-      ),
-    );
-  }
+class ProductCard extends StatelessWidget {
+  final String imageUrl;
+  final String label;
+  final String price;
 
-  Widget _buildCategoryCard(String title, String imagePath) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-              imagePath,
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(title),
-        ],
-      ),
-    );
-  }
+  ProductCard(
+      {required this.imageUrl, required this.label, required this.price});
 
-  Widget _buildProductGrid() {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 0.75,
-      ),
-      itemCount: 5, // Número de productos destacados
-      itemBuilder: (context, index) {
-        return _buildProductCard('Producto ${index + 1}', 'images/imagen${index + 1}.jpg', '\$${(index + 1) * 20}');
-      },
-    );
-  }
-
-  Widget _buildProductCard(String title, String imagePath, String price) {
+  @override
+  Widget build(BuildContext context) {
     return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
+      elevation: 3,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.asset(
-              imagePath,
-              width: double.infinity,
-              height: 120,
-              fit: BoxFit.cover,
-            ),
+          Expanded(
+            child: Image.asset(imageUrl, fit: BoxFit.cover),
+          ),
+          ListTile(
+            title: Text(label),
+            subtitle: Text(price),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  price,
-                  style: TextStyle(
-                    color: Colors.green,
-                  ),
-                ),
-              ],
+            child: ElevatedButton(
+              onPressed: () {
+                Provider.of<CartModel>(context, listen: false)
+                    .addItem(label, price);
+              },
+              child: Text('Agregar al Carrito'),
             ),
           ),
         ],
       ),
     );
   }
+}
 
-  
+class CartModel extends ChangeNotifier {
+  final List<CartItem> _items = [];
+
+  List<CartItem> get items => _items;
+
+  void addItem(String label, String price) {
+    _items.add(CartItem(label: label, price: price));
+    notifyListeners();
+  }
+
+  void removeItem(int index) {
+    _items.removeAt(index);
+    notifyListeners();
+  }
+
+  void editItem(int index, String newLabel, String newPrice) {
+    _items[index] = CartItem(label: newLabel, price: newPrice);
+    notifyListeners();
+  }
+}
+
+class CartItem {
+  String label;
+  String price;
+
+  CartItem({required this.label, required this.price});
 }

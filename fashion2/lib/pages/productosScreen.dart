@@ -11,41 +11,53 @@ class _ProductosScreenState extends State<ProductosScreen> {
   final List<Map<String, String>> products = [
     {
       'image': 'images/imagen1.jpg',
-      'title': 'Camiseta Blanca',
+      'title': 'Blusa Gris',
       'descripcion':
           'La camisa blanca es una prenda de vestir de manga larga o corta, con un cuello y una abertura frontal que generalmente se cierra con botones.'
     },
     {
       'image': 'images/imagen2.jpg',
-      'title': 'Pantalón Negro',
+      'title': 'Jean Verde',
       'descripcion':
           'La camisa blanca es una prenda de vestir de manga larga o corta, con un cuello y una abertura frontal que generalmente se cierra con botones.'
     },
     {
       'image': 'images/imagen3.jpg',
-      'title': 'Vestido Rojo',
+      'title': 'Chaqueta Negra',
       'descripcion':
           'La camisa blanca es una prenda de vestir de manga larga o corta, con un cuello y una abertura frontal que generalmente se cierra con botones.'
     },
     {
-      'image': 'images/imagen1.jpg',
-      'title': 'Vestido Rojo',
+      'image': 'images/imagen4.jpg',
+      'title': 'Zapatos Blancos',
       'descripcion':
           'La camisa blanca es una prenda de vestir de manga larga o corta, con un cuello y una abertura frontal que generalmente se cierra con botones.'
     },
     {
-      'image': 'images/imagen2.jpg',
-      'title': 'Vestido Rojo',
+      'image': 'images/imagen5.jpg',
+      'title': 'Sueter Café',
       'descripcion':
           'La camisa blanca es una prenda de vestir de manga larga o corta, con un cuello y una abertura frontal que generalmente se cierra con botones.'
     },
     {
-      'image': 'images/imagen3.jpg',
-      'title': 'Vestido Rojo',
+      'image': 'images/imagen6.jpg',
+      'title': 'Collar',
       'descripcion':
           'La camisa blanca es una prenda de vestir de manga larga o corta, con un cuello y una abertura frontal que generalmente se cierra con botones.'
     },
-    // Agrega más productos según sea necesario
+    {
+      'image': 'images/imagen7.jpg',
+      'title': 'Aretes',
+      'descripcion':
+          'La camisa blanca es una prenda de vestir de manga larga o corta, con un cuello y una abertura frontal que generalmente se cierra con botones.'
+    },
+    {
+      'image': 'images/imagen8.jpg',
+      'title': 'Gorra',
+      'descripcion':
+          'La camisa blanca es una prenda de vestir de manga larga o corta, con un cuello y una abertura frontal que generalmente se cierra con botones.'
+    },
+    
   ];
 
   @override
@@ -79,7 +91,7 @@ class _ProductosScreenState extends State<ProductosScreen> {
                   ),
                   child: Image.asset(
                     products[index]['image']!,
-                    height: 100.0,
+                    height: 230.0,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
