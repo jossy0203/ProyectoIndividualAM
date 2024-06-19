@@ -287,6 +287,14 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.person, color: Colors.black),
             label: 'Perfil',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list, color: Colors.black),
+            label: 'list',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.production_quantity_limits, color: Colors.black),
+            label: 'list',
+          ),
         ],
         currentIndex: 0,
         selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
@@ -304,9 +312,21 @@ class _HomeScreenState extends State<HomeScreen> {
             case 3:
               Navigator.pushNamed(context, '/perfil');
               break;
+            case 4:
+              Navigator.pushNamed(context, '/list');
+              break;
+            case 5:
+              Navigator.pushNamed(context, '/promotion');
+              break;
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+              Navigator.pushNamed(context, "/form");
+          },
+          child: Icon(Icons.add),
+          ),
     );
   }
 }

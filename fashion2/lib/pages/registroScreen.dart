@@ -9,10 +9,11 @@ class RegistroScreen extends StatefulWidget {
 
 class _RegistroScreenState extends State<RegistroScreen> {
   final _formValidate = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  final name = TextEditingController();
+  final lastname = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
+   final confirmation= TextEditingController();
 
   // void _submitForm() {
   //   if (_formValidate.currentState?.validate() ?? false) {
@@ -57,7 +58,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
                 ),
                 SizedBox(height: 50),
                 TextFormField(
-                  controller: _nameController,
+                  controller: name,
                   keyboardType: TextInputType.text,
                   enableInteractiveSelection: false,
                   style: TextStyle(color: Colors.white),
@@ -78,7 +79,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
                 ),
                 SizedBox(height: 30),
                 TextFormField(
-                  controller: _emailController,
+                  controller: email,
                   keyboardType: TextInputType.emailAddress,
                   enableInteractiveSelection: false,
                   style: TextStyle(color: Colors.white),
@@ -102,7 +103,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
                 ),
                 SizedBox(height: 30),
                 TextFormField(
-                  controller: _passwordController,
+                  controller: password,
                   enableInteractiveSelection: false,
                   style: TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
@@ -126,7 +127,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
                 ),
                 SizedBox(height: 30),
                 TextFormField(
-                  controller: _confirmPasswordController,
+                  controller: confirmation,
                   enableInteractiveSelection: false,
                   style: TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
@@ -142,7 +143,7 @@ class _RegistroScreenState extends State<RegistroScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Por favor confirme su contraseña';
                     }
-                    if (value != _passwordController.text) {
+                    if (value != confirmation.text) {
                       return 'Las contraseñas no coinciden';
                     }
                     return null;
@@ -177,10 +178,11 @@ class _RegistroScreenState extends State<RegistroScreen> {
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
+    name.dispose();
+    lastname.dispose();
+    email.dispose();
+    password.dispose();
+    confirmation.dispose();
     super.dispose();
   }
 }

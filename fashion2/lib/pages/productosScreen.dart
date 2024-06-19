@@ -138,9 +138,17 @@ class _ProductosScreenState extends State<ProductosScreen> {
             icon: Icon(Icons.person, color: Colors.black),
             label: 'Perfil',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list, color: Colors.black),
+            label: 'list',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.production_quantity_limits, color: Colors.black),
+            label: 'list',
+          ),
         ],
         currentIndex: 0,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: const Color.fromARGB(255, 0, 0, 0),
         onTap: (index) {
           switch (index) {
             case 0:
@@ -154,6 +162,12 @@ class _ProductosScreenState extends State<ProductosScreen> {
               break;
             case 3:
               Navigator.pushNamed(context, '/perfil');
+              break;
+            case 4:
+              Navigator.pushNamed(context, '/list');
+              break;
+            case 5:
+              Navigator.pushNamed(context, '/promotion');
               break;
           }
         },
