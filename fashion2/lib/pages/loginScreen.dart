@@ -17,7 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
           title: Text('Registro de Usuario'),
-          backgroundColor: Color.fromARGB(159, 178, 173, 229)),
+          backgroundColor: Color.fromARGB(159, 178, 173, 229)
+          ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
