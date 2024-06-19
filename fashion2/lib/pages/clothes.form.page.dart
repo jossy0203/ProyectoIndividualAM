@@ -1,7 +1,6 @@
 import 'package:fashion2/pages/firebase.service.dart';
 import 'package:flutter/material.dart';
 
-
 class ClothesFormPage extends StatefulWidget {
   @override
   _ClothesFormPageState createState() => _ClothesFormPageState();
@@ -13,69 +12,164 @@ class _ClothesFormPageState extends State<ClothesFormPage> {
   final _descriptionController = TextEditingController();
   final _priceController = TextEditingController();
   final _tallaController = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Subir Tarjeta de Ropa'),
+        title: Text('Agregar Prenda'),
       ),
-      body: Padding(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('images/fondo.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         padding: EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: ListView(
             children: <Widget>[
-              SizedBox(height: 16.0),
-              TextFormField(
-                controller: _nameController,
-                decoration: InputDecoration(labelText: 'Nombre'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, ingrese el nombre';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16.0),
-              TextFormField(
-                controller: _descriptionController,
-                decoration: InputDecoration(labelText: 'Descripción'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, ingrese la descripción';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _priceController,
-                decoration: InputDecoration(labelText: 'Precio'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, ingrese el nombre';
-                  }
-                  return null;
-                },
-              ),
-              TextFormField(
-                controller: _tallaController,
-                decoration: InputDecoration(labelText: 'Talla'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, ingrese el nombre';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () async {
-                await addClothes(_nameController.text, _descriptionController.text, _priceController.text, _tallaController.text);
-              },                
-                child: Text('Subir'),
-              ),
+              Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                CircleAvatar(
+                  radius: 100.0,
+                  backgroundColor: const Color.fromARGB(255, 208, 208, 208),
+                  backgroundImage: AssetImage("images/logo1.png"),
+                ),
+                SizedBox(height: 30),
+                Container(
+                  width: 450,
+                  child: TextFormField(
+                    controller: _nameController,
+                    keyboardType: TextInputType.text,
+                    enableInteractiveSelection: false,
+                    style: TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                        hintText: "Ingrese el nombre de la prenda",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 255, 254, 254)),
+                        labelText: "Nombre",
+                        labelStyle: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Color.fromARGB(159, 132, 69, 226),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255)))),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, ingrese el nombre';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                Container(
+                  width: 450,
+                  child: TextFormField(
+                    controller: _descriptionController,
+                    enableInteractiveSelection: false,
+                    style: TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                        hintText: "Ingrese una descripcion",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 255, 254, 254)),
+                        labelText: "Descripcion",
+                        labelStyle: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Color.fromARGB(159, 132, 69, 226),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255)))),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, ingrese la descripción';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                Container(
+                  width: 450,
+                  child: TextFormField(
+                    controller: _priceController,
+                    enableInteractiveSelection: false,
+                    style: TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                        hintText: "Ingrese el precio",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 255, 254, 254)),
+                        labelText: "Precio",
+                        labelStyle: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Color.fromARGB(159, 132, 69, 226),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255)))),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, ingrese el precio';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(height: 30.0),
+                Container(
+                  width: 450,
+                  child: TextFormField(
+                    controller: _tallaController,
+                    enableInteractiveSelection: false,
+                    style: TextStyle(color: Colors.white),
+                    decoration: const InputDecoration(
+                        hintText: "Ingrese la talla",
+                        hintStyle: TextStyle(
+                            color: Color.fromARGB(255, 255, 254, 254)),
+                        labelText: "Talla",
+                        labelStyle: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Color.fromARGB(159, 132, 69, 226),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255)))),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, ingrese la talla';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(height: 40.0),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState?.validate() ?? true){
+                    await addClothes(
+                        _nameController.text,
+                        _descriptionController.text,
+                        _priceController.text,
+                        _tallaController.text);
+                    };
+                    // ignore: use_build_context_synchronously
+                    Navigator.pushNamed(context, "/list");
+                  },
+                  child: Text('Subir'),
+                ),
+              ])
             ],
           ),
         ),

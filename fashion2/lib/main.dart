@@ -1,5 +1,6 @@
 import 'package:fashion2/firebase_options.dart';
 import 'package:fashion2/pages/carritoScreen.dart';
+import 'package:fashion2/pages/clothes.edit.dart';
 import 'package:fashion2/pages/clothes.form.page.dart';
 import 'package:fashion2/pages/home.dart';
 import 'package:fashion2/pages/list.product.dart';
@@ -47,7 +48,8 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/list': (context) => ClothesListPage(),
         '/form': (context) => ClothesFormPage(),
-        '/promotion': (context) => PromotionsScreen()
+        '/promotion': (context) => PromotionsScreen(),
+        '/edit': (context) => EditClothes()
       },
     );
   }

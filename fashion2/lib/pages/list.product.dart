@@ -1,6 +1,4 @@
-import 'package:fashion2/model/product.model.dart';
 import 'package:fashion2/pages/firebase.service.dart';
-import 'package:fashion2/pages/home.dart';
 import 'package:flutter/material.dart';
 
 class ClothesListPage extends StatefulWidget {
@@ -9,45 +7,128 @@ class ClothesListPage extends StatefulWidget {
 }
 
 class _ClothesListPageState extends State<ClothesListPage> {
-  late Future<List<Clothes>> _clothesList;  // Asegúrate de que _clothesList sea de tipo Future<List<Clothes>>
-
-  @override
-  void initState() {
-    super.initState();
-    _clothesList = getClothes();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Lista de Ropa'),
       ),
-      body: FutureBuilder<List<Clothes>>(
-        future: _clothesList,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No hay datos disponibles'));
-          } else {
-            return GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              children: snapshot.data!.map((clothes) {
-                return ProductCard(
-                  label: clothes.name,
-                  price: clothes.price, 
-                  imageUrl: '', 
-                );
-              }).toList(),
-            );
-          }
-        },
-      ),
+      body: FutureBuilder(
+          future: getClothes(),
+          builder: (context, snapshot) {
+            return GridView.builder(
+                padding: EdgeInsets.all(10.0),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 10.0,
+                  mainAxisSpacing: 10.0,
+                  childAspectRatio: 0.8,
+                ),
+                itemCount: snapshot.data?.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    elevation: 8.0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10.0),
+                            topRight: Radius.circular(10.0),
+                          ),
+                          child: Image.asset(
+                            'images/imagen1.jpg',
+                            height: 230.0,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                            padding: EdgeInsets.all(10.0),
+                            child: Column(children: [
+                              Text(
+                                snapshot.data?[index]['name'],
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                snapshot.data?[index]['description']!,
+                                style: TextStyle(
+                                  fontSize: 15.0,
+                                ),
+                              ),
+                              SizedBox(height:30),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Precio:',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    snapshot.data?[index]['price']!,
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(children: [
+                                Text(
+                                  'Talla:',
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  snapshot.data?[index]['talla']!,
+                                  style: TextStyle(
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ]),
+                              SizedBox(height:30),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () async{
+                                      await Navigator.pushNamed(context, "/edit", arguments: {
+                                        "name": snapshot.data?[index]['name'],
+                                        "uid": snapshot.data?[index]['uid'],
+                                         "description": snapshot.data?[index]['description'],
+                                          "price": snapshot.data?[index]['price'],
+                                           "talla": snapshot.data?[index]['talla'],
+                                      });
+                                      setState(() {
+                                      });
+                                    },
+                                  ),
+                                  SizedBox(width: 40),
+                                  IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () {
+                                     },
+                                   ),
+                                ],
+                              )
+                            ])),
+                      ],
+                    ),
+                  );
+                });
+          }),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -100,6 +181,12 @@ class _ClothesListPageState extends State<ClothesListPage> {
           }
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+              Navigator.pushNamed(context, "/form");
+          },
+          child: Icon(Icons.add),
+          ),
     );
   }
 }
